@@ -1,33 +1,33 @@
-# Project Title - Task manager
+# Project Title - Task Manager
 
 ## Table of Contents
 ===================
 
-  * [Project description](#Project-description)
+  * [Project Description](#project-description)
   * [Installation](#installation)
   * [Usage](#usage)
   * [Credits](#credits)
 
-## Project description
-This is a amazing task manager with the functionality of registering users, adding tasks, viewing all current tasks, generating reports, displaying statistics and view two version of the options both general user and admin.
+## Project Description
+This is an amazing task manager with the functionality of registering users, adding tasks, viewing all current tasks, generating reports, displaying statistics, and viewing two versions of the options, both for general users and admin.
 
 ## Installation
-There are currently in this version no installation requirements, just run this in your terminal.
+There are currently no installation requirements in this version. Just run the program in your terminal.
 
 ## Usage
-The program can be ran in any IDE compatible with Python, such as Pycharm or MS Visual Studio Code.
-You can run the program in the terminal.
+The program can be run in any Python-compatible IDE, such as PyCharm or Microsoft Visual Studio Code. You can also run the program in the terminal.
 
-You are met with a request to log in, initially this requires the admin to log in, but once new users are created they can log in from the start menu also.
-<img width="50%;" src="https://github.com/mahadnifsey/finalCapstone/blob/main/Assets/01.png"/>
+1. Upon running the program, you will be prompted to log in. Initially, only the admin can log in. However, once new users are created, they can log in from the start menu as well.
 
-Once successfully logged in, you will be presented with a easy to follow menu with options to pick from.
-<img width="50%;" src="https://github.com/mahadnifsey/finalCapstone/blob/main/Assets/02.png"/>
+   ![Login Prompt](https://github.com/marcopolo/finalCapstone/blob/main/Assets/01.png)
 
-Here is an example of output of all tasks
-<img width="50%;" src="https://github.com/mahadnifsey/finalCapstone/blob/main/Assets/03.png"/>
+2. After successfully logging in, you will be presented with an easy-to-follow menu with various options to choose from.
 
+   ![Menu Options](https://github.com/marcopolo/finalCapstone/blob/main/Assets/02.png)
 
+3. Here is an example of the output displaying all tasks.
+
+   ![All Tasks Output](https://github.com/marcopolo/finalCapstone/blob/main/Assets/03.png)
 
 ## Credit
-By: Mahad Falage
+This project was developed by  Mahad Falage
