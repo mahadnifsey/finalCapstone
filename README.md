@@ -19,15 +19,15 @@ The program can be run in any Python-compatible IDE, such as PyCharm or Microsof
 
 1. Upon running the program, you will be prompted to log in. Initially, only the admin can log in. However, once new users are created, they can log in from the start menu as well.
 
-   ![Login Prompt](https://github.com/marcopolo/finalCapstone/blob/main/Assets/01.png)
+   ![Login Prompt](https://github.com/mahadnifey/finalCapstone/blob/main/Assets/01.png)
 
 2. After successfully logging in, you will be presented with an easy-to-follow menu with various options to choose from.
 
-   ![Menu Options](https://github.com/marcopolo/finalCapstone/blob/main/Assets/02.png)
+   ![Menu Options](https://github.com/mahadnifsey/finalCapstone/blob/main/Assets/02.png)
 
 3. Here is an example of the output displaying all tasks.
 
-   ![All Tasks Output](https://github.com/marcopolo/finalCapstone/blob/main/Assets/03.png)
+   ![All Tasks Output](https://github.com/mahadnifsey/finalCapstone/blob/main/Assets/03.png)
 
 ## Credit
 This project was developed by  Mahad Falage
