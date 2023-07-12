@@ -185,7 +185,7 @@ def update_task_files():
             task_list_to_write.append(";".join(str_attrs))
         task_file.write("\n".join(task_list_to_write))
 
-# Printing Task files -  Which can be reused in our program
+# Printing Task files -  Which can be reused in our program to print tasks
 def print_task(list):
     display_str = "--------------------------------------------------------------------------\n"
     display_str += f"Task: \t\t\t {list[0]}\n"
@@ -248,7 +248,7 @@ def menu_options():
 
     # Using a While loop we can ensure the user can only pick from our list of options
     while not initial_option:
-        # Add Fresh Terminal here if not working at top - DELETE
+
         print(f"\nWelcome to Task Manager - User: {current_user}\n")
         # presenting the menu_option to the user, ensuring input is lowercase
         # Variable menu was changed to menu_option to be used later in the program - abstraction
@@ -362,9 +362,8 @@ def add_task():
         "description": task_description,
         "due_date": due_date_time,
         "assigned_date": curr_date,
-        "completed": False
+        "completed": "No"
     }
-
 
     task_list.append(new_task)
 
@@ -394,11 +393,13 @@ def view_all():
     # Heading
     print("All Tasks\n")
     for t in task_list:
-        disp_str = f"Task: \t\t {t['title']}\n"
+        disp_str = "--------------------------------------------------------------------------\n"
+        disp_str += f"Task: \t\t {t['title']}\n"
         disp_str += f"Assigned to: \t {t['username']}\n"
         disp_str += f"Date Assigned: \t {t['assigned_date'].strftime(DATETIME_STRING_FORMAT)}\n"
         disp_str += f"Due Date: \t {t['due_date'].strftime(DATETIME_STRING_FORMAT)}\n"
         disp_str += f"Task Description: \n {t['description']}\n"
+        disp_str += "--------------------------------------------------------------------------\n"
         print(disp_str)
         
 # ===============================================================================================================
@@ -410,7 +411,7 @@ def view_mine(curr_user):
     # Using f string to be specific to user
     print(f"All {curr_user} Tasks\n")
 
-    # Only print the tasks related to the user
+    # Only print the tasks related to the user - variable to run a function
     user_specific_task_list = print_user_specific_tasks_and_produce_list()
 
     # Using an else/if statement to identify if user has tasks or not
@@ -422,7 +423,7 @@ def view_mine(curr_user):
 
         # Mark Complete or edit again
         if edit_request:
-            edit_user_specific_task(user_specific_task_list, user_task_edit_index,curr_user)
+            edit_user_specific_task(user_specific_task_list, user_task_edit_index, curr_user)
 
 # Consolidating user specific tasks only using abstraction principles
 def print_user_specific_tasks_and_produce_list():
@@ -440,9 +441,22 @@ def print_user_specific_tasks_and_produce_list():
             #This list stores a dictionary for each task the user has
             specific_task_list.append(t)
             request_number += 1
-
+    
+    #Tis variable is important for the next stages of the program
     return specific_task_list
 
+# A new function that prints only the selected task marked for editing
+def print_selected_task(task,task_num):
+    print("\n\nTask Selected for editing:\n")
+    print(f"Task: {task_num}")
+    print_task([
+        task['title'],
+        task['username'],
+        task['assigned_date'],
+        task['due_date'],
+        task['completed'],
+        task['description']
+    ])
 
 # Edit user task Function
 def user_task_selection(u_spec_task_list):
@@ -453,35 +467,43 @@ def user_task_selection(u_spec_task_list):
     while not edit_number_validation:
     #Ensuring an incorrect data type is not entered
         try:    
-            u_t_edit_index = int(input("How many tasks do you want to enter?\n(No task to enter, no problem, just enter -1 to return to the menu.): "))
-
+            u_t_edit_index = int(input("\n\nWhich task would you like to edit? - (Only Enter a number!)\n"
+                                   "(No task to enter, no problem, just enter -1 to return to the menu.): "))
+        # Defenseive programming
         except ValueError as error:
             print(error)
             print("\nInvalid input. Please try again\n")
             continue
-
+        
+        # else/if statement if user wants to edit a task or not
         if (u_t_edit_index >= 1) and (u_t_edit_index <= len(u_spec_task_list)):
             edit_number_validation = True
             edit_req = True
+            # Print Selected task
+            print_selected_task(u_spec_task_list[u_t_edit_index - 1],(u_t_edit_index))
+
         elif (u_t_edit_index == -1):
             print("\nYou have selected to edit no tasks.\n")
             edit_number_validation = True
             edit_req = False
+
         else:
             print("\nInvalid entry. Please try again\n")
 
     #These variables are important for the next stages of the view_mine function
     return u_t_edit_index, edit_req
 
-
 #Function dealing with all the variations when the user has requested to edit a task
 def edit_user_specific_task(u_spec_t_list, task_to_edit_index,cur_user):
-    user_change_task_input = choice_validation_defense("\n\nDo you wish to mark the task as complete or edit the task?\n", "Mark as complete", "Edit the task")
-    #Get the task_list index for the task we wish to change 
+    user_change_task_input = int(input("\nDo you wish to mark the task as complete or edit the task?\n"
+                                   "1. Mark as complete - (Enter 1)\n"
+                                   "2. Edit the task - (Enter 2)\n"))
+
+    #Get the task_list index for the task we wish to change, eg task 1 would be index 0
     task_list_index = task_list.index(u_spec_t_list[task_to_edit_index - 1])
 
-    if user_change_task_input == "Mark as complete":  
-      
+    if user_change_task_input == 1:  
+
         task_list[task_list_index]['completed'] = "Yes"
         update_task_files()
         print("\nThe task has been marked as completed\n")
@@ -489,13 +511,15 @@ def edit_user_specific_task(u_spec_t_list, task_to_edit_index,cur_user):
         if task_list[task_list_index]['completed'] == "Yes": 
             print("\nThe task is already complete. You cannot edit the task. You will be returned to the options menu\n")
         else:    
-                user_editing_choice = choice_validation_defense("\n\nDo you wish to change the user assigned to the task or the due date?\n", "Change user", "Change due date")
+                # user_editing_choice = choice_validation_defense("\n\nDo you wish to change the user assigned to the task or the due date?\n", "Change user", "Change due date")
+                user_editing_choice = int(input("\n\nDo you wish to change the user assigned to the task or the due date?\n"
+                                   "1. Change user - (Enter 1)\n"
+                                   "2. Change due date - (Enter 2)\n"))
                         
-                if user_editing_choice == "Change user": 
+                if user_editing_choice == 1: 
                     user_request_change_user_assigned_func(task_list_index,cur_user)
                 else:                                       
-                    user_requested_change_due_date_func(task_list_index)     
-
+                    user_requested_change_due_date_func(task_list_index) 
 
 #Function when the user has requested to change the user assigned to one of their tasks
 def user_request_change_user_assigned_func(index,cur_user):
@@ -553,7 +577,7 @@ def display_stats():
             #Any line with a length greater than 2 is not empty
             if len(line) > 2:
                 print(line)
-    
+
     #Create a gap
     print("\n\n")
 
